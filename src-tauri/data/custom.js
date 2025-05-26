@@ -19,9 +19,15 @@ const hookClick = (e) => {
 }
 
 document.addEventListener('click', hookClick, { capture: true })
-document.querySelector('#ice-container #content>div').style.cssText = 'height: 94vh; margin: 0 auto;'
-
-
+function setStyle(retry = 0) {
+  const target = document.querySelector('#ice-container #content>div');
+  if (target) {
+    target.style.cssText = 'height: 94vh; margin: 0 auto;';
+  } else if (retry < 3) {
+    setTimeout(() => setStyle(retry + 1), 500);
+  }
+}
+setStyle()
 // css filter
 document.addEventListener('DOMContentLoaded', () => {
     const targetNode = document.body
